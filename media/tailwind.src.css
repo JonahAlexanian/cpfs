@@ -1,0 +1,8 @@
+/* Tailwind utilities for the CPFS dashboard light theme.
+ * Preflight (base reset) is DISABLED in tailwind.config.cjs so this layer
+ * only adds utility classes on top of dashboard.css component styles.
+ * Regenerate: npx tailwindcss -i media/tailwind.src.css -o media/dashboard.tailwind.css --minify
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

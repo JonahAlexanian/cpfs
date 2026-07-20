@@ -1,0 +1,88 @@
+CPFS Runner — Proprietary Software License Agreement
+
+Copyright (c) 2026 Ragbox. All rights reserved.
+
+IMPORTANT — READ BEFORE USE
+
+This agreement applies to the CPFS Runner software extension ("Software")
+published by Ragbox ("Publisher"), including VSIX packages and Marketplace
+installs. It does NOT apply to the free CPFS methodology articles or tutorials
+on ragbox.llc or elsewhere ("CPFS Document"). The CPFS Document explains a
+workflow; it is not a license to copy, modify, or redistribute this Software.
+
+1. GRANT OF LICENSE
+
+Subject to your compliance with this agreement and payment of applicable fees
+when required, Publisher grants you a limited, non-exclusive, non-transferable,
+revocable license to install and use the Software for your internal development
+work.
+
+Pre-release builds (for example release candidates installed from VSIX during
+dogfood or beta) are authorized only for evaluation and feedback until general
+availability pricing is published.
+
+2. SUBSCRIPTION REQUIRED
+
+CPFS Runner is a commercial product. Continued use after any trial or
+evaluation period requires an active paid subscription or other written
+authorization from Publisher. Unauthorized use is prohibited.
+
+3. RESTRICTIONS
+
+You may not, and may not permit others to:
+
+  (a) copy, distribute, sublicense, sell, or publicly host the Software except
+      as expressly allowed by Publisher or the VS Code / Cursor Marketplace
+      terms for a legitimately purchased subscription;
+
+  (b) modify, reverse engineer, decompile, or disassemble the Software, except
+      where applicable law expressly permits and only after giving Publisher
+      prior written notice;
+
+  (c) remove or alter proprietary notices;
+
+  (d) use the Software to build a competing product or service substantially
+      derived from the Software.
+
+4. OWNERSHIP
+
+The Software is licensed, not sold. Publisher and its licensors retain all
+right, title, and interest in the Software, including all copies and
+derivatives.
+
+5. DATA AND PRIVACY
+
+The Software stores workflow state locally in your workspace (for example
+`.cpfs/` and feature logs). Publisher does not receive that data unless you
+explicitly send it. Marketplace billing is handled by the platform provider
+under its own terms.
+
+6. DISCLAIMER
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM
+EXTENT PERMITTED BY LAW, PUBLISHER DISCLAIMS ALL WARRANTIES, EXPRESS OR
+IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+
+7. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, PUBLISHER SHALL NOT BE LIABLE FOR ANY
+INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS
+OF PROFITS, DATA, OR GOODWILL, ARISING FROM USE OF THE SOFTWARE.
+
+8. TERMINATION
+
+This license ends automatically if you breach it or if your subscription lapses
+without renewal. Upon termination you must stop using the Software and uninstall
+it.
+
+9. GOVERNING LAW
+
+This agreement is governed by the laws applicable in the jurisdiction where
+Publisher is established, without regard to conflict-of-law rules.
+
+10. CONTACT
+
+Licensing and subscription questions: https://ragbox.llc
+
+For questions about this license, contact Publisher before redistributing or
+reusing the Software in any form.

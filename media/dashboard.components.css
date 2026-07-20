@@ -1,0 +1,102 @@
+/* CPFS dashboard — light-theme component classes ported from the interactive
+ * prototype. Loaded AFTER dashboard.tailwind.css so these win where needed.
+ * Tailwind utilities handle colors; these define structure/shape only. */
+
+/* Tailwind runs with preflight OFF (so it doesn't reset dashboard.css component
+ * styles). Preflight normally sets a default border-color (gray-200); without
+ * it, `border`/`border-b`/`border-l-4` utilities fall back to currentColor
+ * (black) and render as harsh black lines. Restore the Tailwind default border
+ * color here. Class-based border-color rules (dashboard.css components and
+ * Tailwind `.border-<color>` utilities) override this `*` default. */
+*, *::before, *::after { border-color: #e5e7eb; }
+
+/* Top-bar CPFS on/off toggle switch */
+.cpfs-toggle { display: inline-flex; align-items: center; gap: 8px; background: transparent; border: none; cursor: pointer; padding: 2px 4px; font: inherit; }
+.cpfs-toggle-track { position: relative; display: inline-block; width: 38px; height: 22px; border-radius: 9999px; background: #d1d5db; transition: background .15s ease; flex: none; }
+.cpfs-toggle-track.on { background: #2563eb; }
+.cpfs-toggle-knob { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.25); transition: transform .15s ease; }
+.cpfs-toggle-track.on .cpfs-toggle-knob { transform: translateX(16px); }
+.cpfs-toggle-label { font-size: 12px; font-weight: 600; color: #374151; }
+
+.tab-btn.active,
+.det-tab-btn.active { border-bottom: 2px solid #2563eb; color: #1f2937; font-weight: 600; }
+/* Reset native <button> chrome so tabs read as text tabs, not OS buttons.
+ * Prototype rendered these as <div>; the live renderer uses <button>, so we
+ * strip the default background/border/font and re-add only the bottom accent. */
+.tab-btn,
+.det-tab-btn { background: transparent; border: none; border-bottom: 2px solid transparent; color: #6b7280; font: inherit; padding: 6px 4px; }
+.det-tab-btn { cursor: pointer; }
+
+table.outcomes th,
+table.outcomes td { border-bottom: 1px solid #e5e7eb; padding: 8px 10px; text-align: left; font-size: 13px; }
+
+.badge { display: inline-block; padding: 2px 9px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+
+.btn { padding: 7px 13px; border-radius: 6px; font-size: 13px; font-weight: 600; border: 1px solid transparent; cursor: pointer; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn.sm { padding: 4px 10px; font-size: 12px; }
+
+#cpfsToast { position: fixed; bottom: 20px; right: 20px; z-index: 50; display: flex; flex-direction: column; gap: 8px; }
+.cpfs-toast { background: #111827; color: #fff; padding: 10px 14px; border-radius: 8px; font-size: 13px; box-shadow: 0 6px 20px rgba(0,0,0,.25); max-width: 340px; }
+
+.cpfs-modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: flex-start; justify-content: center; z-index: 40; padding: 24px; overflow: auto; }
+
+/* All-jobs browser — fixed-layout table (no jumping) */
+.job-list { max-height: 280px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 8px; }
+.job-table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; }
+.job-table thead th { position: sticky; top: 0; background: #f9fafb; text-align: left; padding: 6px 10px; font-size: 11px; text-transform: uppercase; letter-spacing: .02em; color: #6b7280; border-bottom: 1px solid #e5e7eb; z-index: 1; }
+.job-table tbody td { padding: 8px 10px; border-bottom: 1px solid #f3f4f6; vertical-align: middle; overflow: hidden; }
+.job-row { cursor: pointer; }
+.job-row:hover { background: #f3f4f6; }
+.job-row.selected { background: #eff6ff; box-shadow: inset 3px 0 0 #2563eb; }
+/* The active job is the one the hero references — make it unmistakable even
+   when not selected: blue tint + left accent. Active wins over selected. */
+.job-row.is-active { background: #dbeafe; box-shadow: inset 3px 0 0 #2563eb; }
+.job-row.is-active.selected { background: #dbeafe; box-shadow: inset 3px 0 0 #2563eb; }
+.job-row.is-active .font-semibold { color: #1e3a8a; }
+.job-num { width: 48px; color: #9ca3af; font-variant-numeric: tabular-nums; font-size: 12px; white-space: nowrap; }
+.job-name { min-width: 0; }
+.job-name > div { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.job-name .truncate { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.job-state { width: 116px; white-space: nowrap; }
+.job-attempts { width: 84px; text-align: right; color: #6b7280; white-space: nowrap; }
+.job-activity { width: 92px; color: #6b7280; white-space: nowrap; }
+
+/* Fixed-height detail pane so tab switching never jumps the page */
+.det-pane { height: 340px; overflow-y: auto; padding-right: 4px; }
+
+/* Scope tab — confined lists (target files + out-of-scope edit queue) */
+.scope-list { list-style: none; margin: 0; padding: 0; max-height: 240px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 8px; }
+.scope-list li { padding: 6px 10px; border-bottom: 1px solid #f3f4f6; }
+.scope-list li:last-child { border-bottom: none; }
+.scope-edit-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.scope-edit-actions { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+
+/* Attention banner inside the Overview tab (alert cards are shared) */
+.attention-banner .alert-card { padding: 8px 10px; }
+
+/* Communication tab — pinned send-advice box below the scroll area */
+.comm-send-box { margin-top: 10px; padding-top: 10px; border-top: 1px solid #e5e7eb; display: flex; flex-direction: column; gap: 6px; }
+.comm-send-box textarea { width: 100%; resize: vertical; border: 1px solid #d1d5db; border-radius: 8px; padding: 8px; font: inherit; font-size: 13px; }
+
+/* Active Job Focus wrapper */
+.active-focus { border: 1px solid #bfdbfe; border-radius: 12px; background: #f8fafc; padding: 16px; }
+
+/* Settings tab — consolidated settings panel */
+.cpfs-set-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 760px) { .cpfs-set-grid { grid-template-columns: 1fr; } }
+.cpfs-set-group { border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; background: #fff; }
+.cpfs-set-group-title { font-size: 13px; font-weight: 600; margin: 0 0 10px; color: #374151; }
+.cpfs-set-group-body { display: flex; flex-direction: column; gap: 10px; }
+.cpfs-set-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer; }
+.cpfs-set-row-block { align-items: flex-start; flex-direction: column; }
+.cpfs-set-label { font-size: 13px; color: #1f2937; display: flex; flex-direction: column; gap: 2px; }
+.cpfs-set-hint { font-size: 11px; color: #6b7280; font-weight: 400; }
+.cpfs-set-checkbox { width: 18px; height: 18px; accent-color: #111827; cursor: pointer; }
+.cpfs-set-select, .cpfs-set-text, .cpfs-set-number, .cpfs-set-textarea {
+  border: 1px solid #d1d5db; border-radius: 8px; padding: 6px 8px; font: inherit; font-size: 13px; background: #fff; color: #111827;
+}
+.cpfs-set-select { min-width: 140px; }
+.cpfs-set-text, .cpfs-set-number { max-width: 220px; }
+.cpfs-set-textarea { width: 100%; resize: vertical; max-width: 100%; }
+.cpfs-set-row-block .cpfs-set-textarea { max-width: 100%; }
