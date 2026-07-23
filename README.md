@@ -52,7 +52,8 @@ That's not a demo. That's a production product with paying customers — built b
 
 | Path | How |
 |------|-----|
-| **Marketplace** *(coming soon)* | Search **CPFS Runner** by **ragbox** |
+| **Marketplace** | Search **CPFS Runner** by **ragbox** — [marketplace page](https://marketplace.visualstudio.com/items?itemName=ragbox.cpfsrunner) |
+| **Direct download** | [VSIX](https://ragbox.llc/tutorials/cpfs-runner-latest.vsix) · [MCP tarball](https://ragbox.llc/tutorials/cpfs-mcp-latest.tgz) · `npm install -g cpfs-mcp` |
 | **VSIX** | **Extensions → ⋯ → Install from VSIX…** → choose the `.vsix` file → **Reload Window** |
 
 After install, reload the window. You should see a **CPFS** item in the status bar.

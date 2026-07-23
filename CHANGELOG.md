@@ -2,6 +2,13 @@
 
 Public release notes for CPFS Runner. (Internal development history is kept separately and is not shipped.)
 
+## 1.1.20 — 2026-07-23
+
+- **Synced: extension and MCP server now share one version number.** The VS Code extension and the MCP server were versioned independently (extension 1.1.x, MCP 0.2.x); they now both ship as `1.1.20` so a release is one coherent number across both surfaces.
+- **Fixed: no source code leaks in the VSIX.** The extension packaging config was silently shipping 248 source-map files (`.js.map` in `dist/`) — and source maps embed the original TypeScript source. The packaging ignore list was corrected so maps, TypeScript, the Rust core source, and internal scripts never ship. Only compiled code ships. Verified: 0 leaks.
+- **Fixed: mutual exclusion between the extension and the MCP server.** Installing the extension while the MCP server is already running no longer leaves both enforcers on at once — the extension now stays honestly OFF (soft switch) while the MCP server runs, and comes back ON cleanly after it stops. Covers the VS Code auto-install case. Cross-platform PID-liveness check hardened (dead vs. restricted-but-alive processes).
+- **Fixed: download URLs serve correct headers.** The self-hosted VSIX/tarball download URLs now serve `application/octet-stream` with no-cache headers and a forced-download Content-Disposition (a Starlette routing shadow was serving them as `application/x-tar`/`text/plain` with no cache control).
+
 ## 1.1.14 — 2026-07-22
 
 - **Fixed: dashboard Artifacts tab and retest view CSP hardening.** Content-Security-Policy headers on the dashboard Artifacts tab and retest view were tightened so inline content loads safely without relaxed script-src.
