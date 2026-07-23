@@ -1,0 +1,469 @@
+/* CPFS Formal Feature Form — styling.
+   Mirrors the dashboard light theme (media/dashboard.css tokens + component
+   shapes) so the form reads as the same product. Class names are unchanged
+   from the original dark-theme stylesheet — only colors/fonts/shapes move to
+   the dashboard's light palette. */
+
+:root {
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --surface-elevated: #ffffff;
+  --border: #e5e7eb;
+  --border-subtle: #f1f5f9;
+  --text: #1f2937;
+  --text-secondary: #6b7280;
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-glow: rgba(37, 99, 235, 0.18);
+  --ok: #16a34a;
+  --ok-glow: rgba(22, 163, 74, 0.15);
+  --warn: #d97706;
+  --warn-glow: rgba(217, 119, 6, 0.15);
+  --fail: #dc2626;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro", "Helvetica Neue", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 24px 20px 48px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "SF Pro", "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  width: 100%;
+  max-width: min(1100px, 100%);
+  overflow-x: hidden;
+}
+
+.form-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 0 64px;
+}
+
+/* ---------- Header (dark hero card, like the dashboard cockpit header) ---------- */
+.form-header {
+  margin-bottom: 16px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, rgba(22, 27, 34, 0.95) 0%, rgba(28, 33, 40, 0.95) 100%);
+  box-shadow: var(--shadow-card);
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.form-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: #fff;
+}
+
+.header-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #c9d1d9;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  padding: 3px 10px;
+}
+
+.form-subtitle {
+  margin: 10px 0 0 0;
+  color: #c9d1d9;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.form-subtitle strong {
+  color: #fff;
+}
+
+/* ---------- Tabs (match .job-tab / .det-tab-btn) ---------- */
+.tab-bar {
+  display: flex;
+  gap: 4px;
+  margin: 0 0 16px 0;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.tab {
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--text-secondary);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 14px 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-count {
+  display: inline-block;
+  min-width: 1.2em;
+  font-size: 0.64rem;
+  padding: 0 5px;
+  border-radius: 8px;
+  background: var(--border-subtle);
+  color: var(--text-secondary);
+  margin-left: 3px;
+  text-align: center;
+}
+
+.tab.active .tab-count {
+  background: var(--accent-glow);
+  color: var(--accent);
+}
+
+.tab-dot {
+  color: var(--warn);
+  font-size: 0.6rem;
+}
+
+/* ---------- Panels ---------- */
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+/* Form sections = dashboard cards (white surface, border, radius, shadow) */
+.form-section {
+  margin-bottom: 16px;
+  padding: 18px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.form-section.ai-changed-section {
+  border-color: rgba(217, 119, 6, 0.55);
+  background: rgba(217, 119, 6, 0.05);
+  box-shadow: var(--shadow-card), inset 4px 0 0 var(--warn);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field > span {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.field em {
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.field-inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.field-inline > span {
+  font-weight: 400;
+}
+
+/* Inputs — light, match dashboard comm textarea look */
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 9px 11px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: #9ca3af;
+}
+
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: var(--accent);
+}
+
+.image-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.image-path {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-family: ui-monospace, "SF Mono", "SF Mono", monospace;
+  word-break: break-all;
+}
+
+.reference-image {
+  margin-top: 12px;
+  max-width: 100%;
+  max-height: 360px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow);
+  display: block;
+}
+
+.tests-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.section-label {
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+.section-label em {
+  font-weight: 400;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* Test rows = dashboard .job-test-row look */
+.test-row {
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.test-row:last-child {
+  margin-bottom: 0;
+}
+
+.test-row-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.test-number {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+.ai-changed {
+  color: var(--warn);
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: help;
+}
+
+.btn-remove {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.btn-remove:hover {
+  color: var(--fail);
+  background: rgba(220, 38, 38, 0.1);
+  border-color: rgba(220, 38, 38, 0.3);
+}
+
+/* ---------- Action bar (sticky, dashboard card footer look) ---------- */
+.form-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 20px -20px 12px -20px;
+  padding: 14px 20px;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 var(--radius) var(--radius);
+  box-shadow: 0 -1px 6px rgba(0, 0, 0, 0.04);
+}
+
+.actions-spacer {
+  flex: 1 1 auto;
+}
+
+/* Buttons — mirror the dashboard .btn primary / secondary / ghost */
+.btn-primary,
+.btn-secondary,
+.btn-ghost {
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  padding: 9px 16px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  line-height: 1.35;
+  transition: background 120ms ease, border-color 120ms ease, transform 80ms ease, box-shadow 120ms ease;
+}
+
+.btn-primary:active,
+.btn-secondary:active,
+.btn-ghost:active {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent-glow);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.btn-secondary {
+  background: var(--surface-elevated);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--bg);
+  border-color: var(--accent);
+}
+
+.btn-start {
+  background: var(--ok);
+  color: #fff;
+  border-color: var(--ok);
+  box-shadow: 0 0 0 0 var(--ok-glow);
+}
+
+.btn-start:hover {
+  background: #15803d;
+  border-color: #15803d;
+  box-shadow: 0 0 0 4px var(--ok-glow);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border-color: transparent;
+  padding: 9px 12px;
+}
+
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: var(--border);
+  background: var(--surface-elevated);
+}
+
+.form-help {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.form-help strong {
+  color: var(--text);
+}
+
+.muted {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  body {
+    padding: 16px 12px 32px;
+  }
+  .form-header {
+    padding: 18px;
+  }
+  .form-header h1 {
+    font-size: 1.3rem;
+  }
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .form-actions .btn-primary,
+  .form-actions .btn-secondary,
+  .form-actions .btn-start,
+  .form-actions .btn-ghost {
+    width: 100%;
+  }
+}

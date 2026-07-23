@@ -1,0 +1,35 @@
+node_modules/
+# Ignore dist/ contents but re-include the compiled wasm (dist/native/) so a
+# fresh clone works without the Rust toolchain. Using dist/* (not dist/)
+# because git can't re-include files in a fully-ignored directory.
+dist/*
+!dist/native/
+*.vsix
+.DS_Store
+# CPFS Runner — local session state
+.cpfs/active.json
+.cpfs/events.jsonl
+# Licensing — owner-private signing key (NEVER commit, NEVER package)
+scripts/.cpfs-license-private-key.pem
+# Scratch — throwaway test scaffolding (job creators, one-off probes)
+scratch/
+# Rust/WASM build artifacts — the compiled output (dist/native/) is committed
+# so a fresh clone works without the Rust toolchain; these intermediate dirs
+# are NOT committed.
+native/target/
+native/pkg/
+native/Cargo.lock
+
+# Public-repo exclusions (these files stay in the private workspace but must
+# never be pushed to the public GitHub repo):
+# - Rust source is proprietary; only the compiled wasm (dist/native/) ships.
+/native/
+# - License key generator uses the owner-private signing key.
+scripts/gen-license.mjs
+# - Internal ops notes.
+MARKETPLACE_PUBLISH.md
+# - Marketing drafts.
+docs/*.docx
+# - Environment / secrets.
+.env*
+*.pem
