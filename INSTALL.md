@@ -8,8 +8,8 @@ Search **CPFS Runner** by publisher **ragbox** on the [VS Code Marketplace](http
 
 Prefer the marketplace? Grab the latest build directly — always the current version, served with no-cache headers:
 
-- **Extension (VSIX):** [https://ragbox.llc/tutorials/cpfs-runner-latest.vsix](https://ragbox.llc/tutorials/cpfs-runner-latest.vsix) (currently `1.1.20`)
-- **MCP server (tarball):** [https://ragbox.llc/tutorials/cpfs-mcp-latest.tgz](https://ragbox.llc/tutorials/cpfs-mcp-latest.tgz) (currently `1.1.20`)
+- **Extension (VSIX):** [https://ragbox.llc/tutorials/cpfs-runner-latest.vsix](https://ragbox.llc/tutorials/cpfs-runner-latest.vsix) (currently `1.1.21`)
+- **MCP server (tarball):** [https://ragbox.llc/tutorials/cpfs-mcp-latest.tgz](https://ragbox.llc/tutorials/cpfs-mcp-latest.tgz) (currently `1.1.21`)
 
 Then install the VSIX: **Extensions** → **…** → **Install from VSIX…** → choose the file → **Reload Window**.
 
@@ -36,7 +36,7 @@ npm install
 npm run package:vsix
 ```
 
-Output: `cpfsrunner-1.1.20.vsix` (version matches `package.json`).
+Output: `cpfsrunner-1.1.21.vsix` (version matches `package.json`).
 
 **License:** CPFS Runner is proprietary — paid subscription required for production use. See `LICENSE` in the package. The Extensions panel shows **SEE LICENSE IN LICENSE**, not MIT.
 

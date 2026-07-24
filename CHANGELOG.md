@@ -2,6 +2,11 @@
 
 Public release notes for CPFS Runner. (Internal development history is kept separately and is not shipped.)
 
+## 1.1.21 — 2026-07-24
+
+- **Fixed: the ambiguous-match prompt no longer fires while CPFS is paused.** Turning CPFS off (the toggle) is now honored by the IDE hooks — previously the hook kept running chat job-matching and firing the "two jobs could match" prompt even while CPFS was off, because the off-state was detected by config-file existence rather than the `enabled` flag. The hook now no-ops entirely while paused (no matching, no scope enforcement, no prompts), matching the toggle's "gates and hooks stop acting" contract.
+- **Changed: ambiguous-match disambiguation is now a webview dialog, not the command palette.** When two jobs could match your message, CPFS now opens a proper dialog panel (like the dashboard) showing each job as a card with its full name, slug, attempt number, state, and TARGET FILES — instead of the VS Code QuickPick that appeared in the command-palette area. The dialog stays open until you pick.
+
 ## 1.1.20 — 2026-07-23
 
 - **Synced: extension and MCP server now share one version number.** The VS Code extension and the MCP server were versioned independently (extension 1.1.x, MCP 0.2.x); they now both ship as `1.1.20` so a release is one coherent number across both surfaces.
