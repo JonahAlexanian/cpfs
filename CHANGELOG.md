@@ -2,6 +2,14 @@
 
 Public release notes for CPFS Runner. (Internal development history is kept separately and is not shipped.)
 
+## 1.1.22 — 2026-07-25
+
+- **Fixed: INSTALL.md now ships inside the npm tarball.** The `files` field in `package.json` was missing `docs/`, so a stranger who downloaded the `.tgz` and installed it globally had no install guide — they'd only find it on the website or in the git repo. `docs/` is now included in the tarball (120 files, was 117).
+- **Fixed: INSTALL.md Step 5 now includes the `cpfs_agree_verify` step.** The install guide jumped from Start → Work → Record → Pass, skipping the "agree the verification method" step. A stranger following the docs literally would hit the Pass gate with "Verification not agreed" and have no instruction on what to do. Step 5 now has 5 steps: Start → Agree verify → Work → Record evidence → Pass.
+- **Fixed: the Pass gate message now tells you what to do.** When `cpfs_end_attempt_success` is blocked because verify isn't agreed, the reason now appends "Call cpfs_agree_verify (or ask the owner to agree the verify method) before Pass." — instead of the cryptic "Verification not agreed for outcome(s): A".
+- **Fixed: INSTALL.md License section now references `config-mcp.json`.** The MCP server stores its license key in `.cpfs/config-mcp.json` (separate from the extension's `.cpfs/config.json`), but the docs said `config.json`. Now corrected, with a note that the two runtimes use separate configs.
+- **Fixed: `featureLogPath` no longer crashes on workspaces without `historys.json`.** Workspaces without a configured history (test fixtures, old installs) caused `writeFileSync(null)` because `logsDir` returned null. Now falls back to the legacy `logs/development_history/` path.
+
 ## 1.1.21 — 2026-07-24
 
 - **Fixed: the ambiguous-match prompt no longer fires while CPFS is paused.** Turning CPFS off (the toggle) is now honored by the IDE hooks — previously the hook kept running chat job-matching and firing the "two jobs could match" prompt even while CPFS was off, because the off-state was detected by config-file existence rather than the `enabled` flag. The hook now no-ops entirely while paused (no matching, no scope enforcement, no prompts), matching the toggle's "gates and hooks stop acting" contract.
