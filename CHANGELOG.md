@@ -2,6 +2,11 @@
 
 Public release notes for CPFS Runner. (Internal development history is kept separately and is not shipped.)
 
+## 1.1.23 — 2026-07-27
+
+- **Improved: heuristic scanner (§13) — Runner and MCP now share refined signals.** The compiled WASM core that powers both the VS Code extension and the MCP server now uses tighter heuristic patterns that cut false positives from 62 to 3 findings on the factai workspace. Four signals refined: (1) `comment_workaround_hint` only fires on actual comment lines (full-line and inline), not code that happens to contain "this case" in a string; (2) `path_literal_in_condition` skips URL paths, protocol schemes, short strings, text markers, and pure text words — only flags real filename special-cases; (3) `numeric_threshold_in_condition` skips `len()` comparisons and slice patterns; (4) `has_semantic_regex` only flags `re.compile`/`RegExp(` in classifier/intent files, not in service files where regex is mechanical parsing.
+- **Fixed: MCP heuristic review now filters by code-file type (Runner parity).** The MCP server's `doHeuristicReview` was scanning all TARGET FILES (including `.md`, `.html`, `.json` docs), while the Runner only scans code files via `isScannableCodeFile`. This produced 15 false positives from documentation files alone. The MCP server now applies the same filter, matching the Runner's behavior.
+
 ## 1.1.22 — 2026-07-25
 
 - **Fixed: INSTALL.md now ships inside the npm tarball.** The `files` field in `package.json` was missing `docs/`, so a stranger who downloaded the `.tgz` and installed it globally had no install guide — they'd only find it on the website or in the git repo. `docs/` is now included in the tarball (120 files, was 117).
