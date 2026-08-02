@@ -2,12 +2,12 @@
 
 Public release notes for CPFS Runner. (Internal development history is kept separately and is not shipped.)
 
-## 1.1.23 — 2026-07-27
+## 1.1.28 — 2026-07-27
 
 - **Improved: heuristic scanner (§13) — Runner and MCP now share refined signals.** The compiled WASM core that powers both the VS Code extension and the MCP server now uses tighter heuristic patterns that cut false positives from 62 to 3 findings on the factai workspace. Four signals refined: (1) `comment_workaround_hint` only fires on actual comment lines (full-line and inline), not code that happens to contain "this case" in a string; (2) `path_literal_in_condition` skips URL paths, protocol schemes, short strings, text markers, and pure text words — only flags real filename special-cases; (3) `numeric_threshold_in_condition` skips `len()` comparisons and slice patterns; (4) `has_semantic_regex` only flags `re.compile`/`RegExp(` in classifier/intent files, not in service files where regex is mechanical parsing.
 - **Fixed: MCP heuristic review now filters by code-file type (Runner parity).** The MCP server's `doHeuristicReview` was scanning all TARGET FILES (including `.md`, `.html`, `.json` docs), while the Runner only scans code files via `isScannableCodeFile`. This produced 15 false positives from documentation files alone. The MCP server now applies the same filter, matching the Runner's behavior.
 
-## 1.1.22 — 2026-07-25
+## 1.1.28 — 2026-07-25
 
 - **Fixed: INSTALL.md now ships inside the npm tarball.** The `files` field in `package.json` was missing `docs/`, so a stranger who downloaded the `.tgz` and installed it globally had no install guide — they'd only find it on the website or in the git repo. `docs/` is now included in the tarball (120 files, was 117).
 - **Fixed: INSTALL.md Step 5 now includes the `cpfs_agree_verify` step.** The install guide jumped from Start → Work → Record → Pass, skipping the "agree the verification method" step. A stranger following the docs literally would hit the Pass gate with "Verification not agreed" and have no instruction on what to do. Step 5 now has 5 steps: Start → Agree verify → Work → Record evidence → Pass.
@@ -15,47 +15,47 @@ Public release notes for CPFS Runner. (Internal development history is kept sepa
 - **Fixed: INSTALL.md License section now references `config-mcp.json`.** The MCP server stores its license key in `.cpfs/config-mcp.json` (separate from the extension's `.cpfs/config.json`), but the docs said `config.json`. Now corrected, with a note that the two runtimes use separate configs.
 - **Fixed: `featureLogPath` no longer crashes on workspaces without `historys.json`.** Workspaces without a configured history (test fixtures, old installs) caused `writeFileSync(null)` because `logsDir` returned null. Now falls back to the legacy `logs/development_history/` path.
 
-## 1.1.21 — 2026-07-24
+## 1.1.28 — 2026-07-24
 
 - **Fixed: the ambiguous-match prompt no longer fires while CPFS is paused.** Turning CPFS off (the toggle) is now honored by the IDE hooks — previously the hook kept running chat job-matching and firing the "two jobs could match" prompt even while CPFS was off, because the off-state was detected by config-file existence rather than the `enabled` flag. The hook now no-ops entirely while paused (no matching, no scope enforcement, no prompts), matching the toggle's "gates and hooks stop acting" contract.
 - **Changed: ambiguous-match disambiguation is now a webview dialog, not the command palette.** When two jobs could match your message, CPFS now opens a proper dialog panel (like the dashboard) showing each job as a card with its full name, slug, attempt number, state, and TARGET FILES — instead of the VS Code QuickPick that appeared in the command-palette area. The dialog stays open until you pick.
 
-## 1.1.20 — 2026-07-23
+## 1.1.28 — 2026-07-23
 
-- **Synced: extension and MCP server now share one version number.** The VS Code extension and the MCP server were versioned independently (extension 1.1.x, MCP 0.2.x); they now both ship as `1.1.20` so a release is one coherent number across both surfaces.
+- **Synced: extension and MCP server now share one version number.** The VS Code extension and the MCP server were versioned independently (extension 1.1.x, MCP 0.2.x); they now both ship as `1.1.28` so a release is one coherent number across both surfaces.
 - **Fixed: no source code leaks in the VSIX.** The extension packaging config was silently shipping 248 source-map files (`.js.map` in `dist/`) — and source maps embed the original TypeScript source. The packaging ignore list was corrected so maps, TypeScript, the Rust core source, and internal scripts never ship. Only compiled code ships. Verified: 0 leaks.
 - **Fixed: mutual exclusion between the extension and the MCP server.** Installing the extension while the MCP server is already running no longer leaves both enforcers on at once — the extension now stays honestly OFF (soft switch) while the MCP server runs, and comes back ON cleanly after it stops. Covers the VS Code auto-install case. Cross-platform PID-liveness check hardened (dead vs. restricted-but-alive processes).
 - **Fixed: download URLs serve correct headers.** The self-hosted VSIX/tarball download URLs now serve `application/octet-stream` with no-cache headers and a forced-download Content-Disposition (a Starlette routing shadow was serving them as `application/x-tar`/`text/plain` with no cache control).
 
-## 1.1.14 — 2026-07-22
+## 1.1.28 — 2026-07-22
 
 - **Fixed: dashboard Artifacts tab and retest view CSP hardening.** Content-Security-Policy headers on the dashboard Artifacts tab and retest view were tightened so inline content loads safely without relaxed script-src.
 - **Added: multi-IDE agent hooks.** Pre-commit / pre-push scope + heuristic hooks now install and fire across multiple AI IDEs (Cursor, Windsurf, Cline, Roo), not just VS Code.
 - **Hardened: free-tier enforcement.** The free-tier exhausted gate and anti-circumvention self-heal were hardened against activation-time bypasses.
 
-## 1.1.12 — 2026-07-21 (Marketplace release)
+## 1.1.28 — 2026-07-21 (Marketplace release)
 
 - **Marketplace release of the WASM-sole-core build + dashboard work.** This is the version currently live on the VS Code Marketplace.
-- **Changed: WASM is the sole core implementation** (see 1.1.10). No TypeScript fallback ships.
+- **Changed: WASM is the sole core implementation** (see 1.1.28). No TypeScript fallback ships.
 - **Added: dashboard Artifacts tab** with no-active-state handling and lifecycle IDLE→SUSPENDED, plus state-derivation sync.
 
-## 1.1.10 — 2026-07-21
+## 1.1.28 — 2026-07-21
 
 - **Changed: WASM is now the sole core implementation — all TypeScript fallbacks removed.** License, free-tier, entitlement, verify-gate, overlap, and claim-guard logic all run only in the compiled WebAssembly core. There is **no pure-TypeScript fallback**: if the WASM module fails to load, every core function throws and the extension stops. No source backstop ships in any distribution.
 
-## 1.1.3 — 2026-07-19
+## 1.1.28 — 2026-07-19
 
 - **Added: self-dogfood proof point** to the marketplace listing and homepage.
 
-## 1.1.2 — 2026-07-19
+## 1.1.28 — 2026-07-19
 
 - **Fixed: "just now" label in the All-jobs Activity column** so recent activity timestamps render correctly.
 
-## 1.1.1 — 2026-07-19
+## 1.1.28 — 2026-07-19
 
 - **Fixed: honest stl2cad proof point** — corrected the proof-point copy to be accurate about limitations.
 
-## 1.1.0 — 2026-07-19
+## 1.1.28 — 2026-07-19
 
 - **Added: WASM core + new hero.** Hero updated to "Program without Programming with AI"; the compiled WebAssembly core is the enforcement engine.
 
