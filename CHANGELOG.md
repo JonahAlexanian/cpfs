@@ -2,6 +2,11 @@
 
 Public release notes for CPFS Runner. (Internal development history is kept separately and is not shipped.)
 
+## 1.1.31 — 2026-08-03
+
+- **Dashboard parity (Runner + MCP).** Shared verify-mode UX: human retest pass/fail, heuristic review panel, reopen-to-IDLE, and `dashboard_parity_test.cjs` guard so both dashboards wire the same job-gate commands.
+- **Includes 1.1.30:** Verify-mode columns (Mode/Verdict), mandatory RETEST recipe gate, human pass/fail controls for non-automatable tasks.
+
 ## 1.1.28 — 2026-07-27
 
 - **Improved: heuristic scanner (§13) — Runner and MCP now share refined signals.** The compiled WASM core that powers both the VS Code extension and the MCP server now uses tighter heuristic patterns that cut false positives from 62 to 3 findings on the factai workspace. Four signals refined: (1) `comment_workaround_hint` only fires on actual comment lines (full-line and inline), not code that happens to contain "this case" in a string; (2) `path_literal_in_condition` skips URL paths, protocol schemes, short strings, text markers, and pure text words — only flags real filename special-cases; (3) `numeric_threshold_in_condition` skips `len()` comparisons and slice patterns; (4) `has_semantic_regex` only flags `re.compile`/`RegExp(` in classifier/intent files, not in service files where regex is mechanical parsing.
