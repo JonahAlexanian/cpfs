@@ -59,8 +59,8 @@ license key (purchased separately) only unlocks unlimited enforcement.
 
 ```bash
 # In the cpfs-mcp source checkout:
-npm pack                       # produces cpfs-mcp-0.2.0.tgz
-npm install -g ./cpfs-mcp-0.2.0.tgz
+npm pack                       # produces cpfs-mcp-<version>.tgz
+npm install -g ./cpfs-mcp-<version>.tgz
 ```
 
 ### Option C: From the monorepo (development)
@@ -378,9 +378,12 @@ a degraded mode — by design.
 
 ### "EADDRINUSE: address already in use 127.0.0.1:8765"
 
-Another process (often a previous cpfs-mcp instance) is using the dashboard
-port. Either stop it, or set `CPFS_DASHBOARD_PORT=8766` (or `0` to disable the
-dashboard) in the server env.
+Another process (often a previous cpfs-mcp instance during a Cursor reload) is
+using the dashboard port. **Since 1.1.25** the server retries binding with
+capped backoff until the port frees — it should self-heal within seconds without
+manual intervention. If it still fails after a minute, stop the stale process,
+set `CPFS_DASHBOARD_PORT=8766` (or `0` to disable the dashboard), or reload
+your AI client so MCP respawns.
 
 ### Self-test shows `[FAIL] Config file — corrupt JSON`
 
