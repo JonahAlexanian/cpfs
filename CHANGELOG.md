@@ -2,6 +2,25 @@
 
 Public release notes for CPFS Runner. (Internal development history is kept separately and is not shipped.)
 
+## 1.1.35 — 2026-10-21
+
+- **Fixed: Abandon now sticks.** Abandoning a job could be silently undone the next time the dashboard refreshed, because the "abandoned" marker was written to the wrong folder. It is now written into the job's real log, and no stray log files are left behind.
+- **Fixed: `active.json` could end up with stray text** when two writes overlapped. It is now written safely (temp file, then rename).
+- **Changed: the packaged extension no longer includes private working folders** (`.cpfs`, `.cursor`, `.github`, `All-logs`, `logs`, per-workspace AI rule copies).
+- Housekeeping: package lock file version brought in line with the release.
+
+## 1.1.34 — 2026-10-21
+
+- **Fixed: fewer pointless accept/deny prompts.** CPFS's own proof files (`logs/verify/`), packaged extension files (`*.vsix`) and `.cpfs/zones.json` are now ignored automatically. When your project folder sits inside a larger repo, target files written with the repo-folder prefix (e.g. `my-folder/src/a.ts`) are converted at job start, so your own declared targets are no longer flagged as out-of-scope.
+
+## 1.1.33 — 2026-10-21
+
+- **Added: "Refresh AI context" button in the dashboard Quick actions.** Refresh the active CPFS rule on demand instead of waiting for the stale-context warning. (Runs the existing `CPFS: Refresh AI Context` command.)
+
+## 1.1.32 — 2026-10-21
+
+- **Fixed: generated and CPFS-owned files no longer flagged as out-of-scope.** Cache folders (`__pycache__`, `.mypy_cache`, `.pytest_cache`, `.cache`, `node_modules`, `.git`) are now ignored at any depth, as are `.tmp` / `.swp` / `.pyc` files, CPFS's own rule files (`.cursor/rules/cpfs-*.mdc`) and the `All-logs/` folders. Runner and MCP share one rule, so you are no longer asked to accept or deny them. Stale generated entries in the MCP out-of-scope list clear themselves.
+
 ## 1.1.31 — 2026-08-03
 
 - **Dashboard parity (Runner + MCP).** Shared verify-mode UX: human retest pass/fail, heuristic review panel, reopen-to-IDLE, and `dashboard_parity_test.cjs` guard so both dashboards wire the same job-gate commands.
